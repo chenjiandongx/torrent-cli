@@ -6,30 +6,31 @@ import argparse
 import requests
 from bs4 import BeautifulSoup
 
+
 HEADERS = {
     'X-Requested-With': 'XMLHttpRequest',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
                   '(KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
 }
 
-__version__ = "VERSION 0.0.1"
+VERSION = "VERSION 0.0.2"
 
 
 def get_parser():
     """
     解析命令行参数
     """
-    parser = argparse.ArgumentParser(description='Magnets-Getter CLI Tools')
+    parser = argparse.ArgumentParser(description='Magnets-Getter CLI Tools.')
     parser.add_argument('-k', '--keyword', type=str,
-                        help='magnet name')
+                        help='magnet keyword.')
     parser.add_argument('-n', '--num', type=int, default=20,
-                        help='magnet count')
+                        help='magnet number.(default 20)')
     parser.add_argument('-s', '--sort-by', type=int, default=0,
-                        help='0: Sort by date，1: Sort by size')
+                        help='0: Sort by date，1: Sort by size.(default 0)')
     parser.add_argument('-o', '--output', type=str,
-                        help='output file path, supports csv and json format')
+                        help='output file path, supports csv and json format.')
     parser.add_argument('-p', '--pretty-oneline', action='store_true',
-                        help='only magnet info at one line.')
+                        help='show magnets info with one line.')
     parser.add_argument('-v', '--version', action='store_true',
                         help='version information.')
     return parser
@@ -42,7 +43,7 @@ def command_line_runner():
     args = vars(parser.parse_args())
 
     if args['version']:
-        print(__version__)
+        print(VERSION)
         return
 
     if not args["keyword"]:
@@ -69,6 +70,7 @@ def run(kw, num, sort_by):
     # 确保 num 有效
     if num < 0 or num > 200:
         num = 20
+    # 每页最多 20 条磁力信息
     page = num // 20
 
     urls = []
@@ -88,7 +90,7 @@ def run(kw, num, sort_by):
 
     magnets = []
     if not urls:
-        print("Sorry, find nothing :(")
+        print("Sorry, found nothing :(")
 
     for url in urls:
         try:
@@ -97,7 +99,6 @@ def run(kw, num, sort_by):
             magnet_name = BeautifulSoup(resp, 'lxml').find("h3").text
             magnet_date, magnet_size = (
                 str(BeautifulSoup(resp, 'lxml').find("h4").text).split(maxsplit=1))
-
             magnets.append({
                 "magnet": magnet,               # 磁力链接
                 "magnet_name": magnet_name,     # 磁力名称
