@@ -1,3 +1,5 @@
+from __future__ import division
+import math
 import csv
 import json
 from pprint import pprint
@@ -71,7 +73,7 @@ def run(kw, num, sort_by):
     if num < 0 or num > 200:
         num = 20
     # 每页最多 20 条磁力信息
-    page = num // 20
+    page = math.ceil(num / 20)
 
     urls = []
     for p in range(1, page + 1):
@@ -107,10 +109,10 @@ def run(kw, num, sort_by):
             })
         except Exception:
             print("Crawling Exception, may be you should check your network!")
-    return sort_magnets(magnets, sort_by)
+    return sort_magnets(magnets, sort_by, num)
 
 
-def sort_magnets(magnets, sort_by):
+def sort_magnets(magnets, sort_by, num):
     """ 排序磁力
 
     :param magnets: 磁力列表
@@ -135,7 +137,7 @@ def sort_magnets(magnets, sort_by):
         _magnets = sorted(magnets,
                           key=lambda x: x["magnet_size_kb"],
                           reverse=True)
-    return _magnets
+    return _magnets[:num]
 
 
 def _print(magnets, is_show_magnet_only):
