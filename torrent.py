@@ -163,7 +163,7 @@ def _output(magnets, path):
     if path:
         _, extension = os.path.splitext(path)
         if extension in ['.csv', '.json']:
-            p.save_as(records=magnets, dest_file=path)
+            p.save_as(records=magnets, dest_file_name=path)
         else:
             print("Failed to save the file!")
 
