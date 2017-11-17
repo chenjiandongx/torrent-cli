@@ -73,8 +73,7 @@ def run(kw, num, sort_by):
     if num < 0 or num > 200:
         num = 20
     # 每页最多 20 条磁力信息
-    page = math.ceil(num / 20)
-
+    page = int(math.ceil(num / 20))
     urls = []
     for p in range(1, page + 1):
         url = domain + "/index.php?r=files%2Findex&kw={kw}&page={p}".\
