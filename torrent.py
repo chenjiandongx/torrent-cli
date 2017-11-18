@@ -2,13 +2,13 @@
 # coding=utf-8
 from __future__ import unicode_literals, division
 
+import os
 import math
-import csv
-import json
 import argparse
 
 import requests
 from bs4 import BeautifulSoup
+import pyexcel as p
 
 
 HEADERS = {
@@ -165,24 +165,11 @@ def _output(magnets, path):
     :param path: 文件路径，支持 csv 和 json 两种文件格式
     """
     if path:
-        if str(path).endswith("csv"):
-            try:
-                with open(path, mode="w+", encoding="utf-8") as fout:
-                    f_csv = csv.writer(fout)
-                    f_csv.writerow((
-                        "magnet_name", "magnet_date", "magnet_size", "magnet"))
-                    for row in magnets:
-                        f_csv.writerow((
-                            row["magnet_name"], row["magnet_date"],
-                            row["magnet_size"], row["magnet"]))
-            except Exception:
-                print("Failed to save the file!")
-        if str(path).endswith("json"):
-            try:
-                with open(path, mode="w+", encoding="utf-8") as fout:
-                    fout.write(json.dumps(magnets))
-            except Exception:
-                print("Failed to save the file!")
+        _, extension = os.path.splitext(path)
+        if extension in ['.csv', '.json']:
+            p.save_as(records=magnets, dest_file_name=path)
+        else:
+            print("Failed to save the file!")
 
 
 if __name__ == "__main__":
