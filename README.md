@@ -10,7 +10,7 @@ Windows10 + Python3
 ### 安装
 #### pip 安装
 ```
-$ pip install torrent-cli
+$ pip install torrent-cli -U
 ```
 
 #### 源码安装
@@ -50,26 +50,36 @@ optional arguments:
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2
 Crawling data for you.....
-{'magnet': 'magnet:?xt=urn:btih:621c1325452840ba221740b0c6d305a625ecbc81',
- 'magnet_date': '2017-11-15',
- 'magnet_name': '战狼2.新战狼.2017.HD2160P.X264.AAC.国语中字',
- 'magnet_size': '5.43 GB'}
-{'magnet': 'magnet:?xt=urn:btih:a8e41331091160c1660404ea37cdababa8616c21',
- 'magnet_date': '2017-11-12',
- 'magnet_name': '战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-bbs.homefei.me',
- 'magnet_size': '3.5 GB'}
-{'magnet': 'magnet:?xt=urn:btih:1647c411b8481738d29661b96629c7493f62ed12',
- 'magnet_date': '2017-11-12',
- 'magnet_name': '战狼2.新战狼.2017.HD1080P.X264.AAC.国语中字',
- 'magnet_size': '2.61 GB'}
-{'magnet': 'magnet:?xt=urn:btih:afbda9a99b38f4fb974931fac6b9817126ce25f0',
- 'magnet_date': '2017-11-11',
- 'magnet_name': '战狼2.mp4',
- 'magnet_size': '2.32 GB'}
+Crawling data for you.....
+磁链: magnet:?xt=urn:btih:7ccaddac5d1cce7057b5381b49e1522f6c39e047
+名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-国语中字-RARBT
+大小: 2.85 GB
+日期: 2017-11-17
+
+磁链: magnet:?xt=urn:btih:b441bedeb5d64785ce6333564b739354d7775843
+名称: 【百度搜：爱诺影视】战狼2.2017.HD1080P.国语中字
+大小: 2.1 GB
+日期: 2017-11-17
+
+磁链: magnet:?xt=urn:btih:621c1325452840ba221740b0c6d305a625ecbc81
+名称: 战狼2.新战狼.2017.HD2160P.X264.AAC.国语中字
+大小: 5.43 GB
+日期: 2017-11-15
+
+磁链: magnet:?xt=urn:btih:a8e41331091160c1660404ea37cdababa8616c21
+名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-bbs.homefei.me
+大小: 3.5 GB
+日期: 2017-11-12
+
+磁链: magnet:?xt=urn:btih:1647c411b8481738d29661b96629c7493f62ed12
+名称: 战狼2.新战狼.2017.HD1080P.X264.AAC.国语中字
+大小: 2.61 GB
+日期: 2017-11-12
+
 ......
 ```
 
-单行显示并按大小排序
+**单行显示并按大小排序**
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2 -p -s 1
 Crawling data for you.....
@@ -95,7 +105,8 @@ magnet:?xt=urn:btih:afbda9a99b38f4fb974931fac6b9817126ce25f0 2.32 GB 2017-11-11
 magnet:?xt=urn:btih:b2489aed91b9a154bcb31147897d8183ca1707bd 720.82 MB 2017-11-06
 ```
 
-或者可以保存为 csv 或者 json 文件
+**或者可以保存为 csv 或者 json 文件**
+建议保存为 csv 文件，json 数据会被序列化，转为 utf 编码。
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2 -o movie.csv
 ```
