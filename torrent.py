@@ -1,8 +1,10 @@
-from __future__ import division
+#!/usr/bin/env python
+# coding=utf-8
+from __future__ import unicode_literals, division
+
 import math
 import csv
 import json
-from pprint import pprint
 import argparse
 
 import requests
@@ -150,9 +152,10 @@ def _print(magnets, is_show_magnet_only):
             print(row["magnet"], row["magnet_size"], row["magnet_date"])
     else:
         for row in magnets:
-            if "magnet_size_kb" in row:
-                row.pop("magnet_size_kb")
-            pprint(row)
+            print("磁链:", row["magnet"])
+            print("名称:", row["magnet_name"])
+            print("大小:", row["magnet_size"])
+            print("日期:", row["magnet_date"], "\n")
 
 
 def _output(magnets, path):
