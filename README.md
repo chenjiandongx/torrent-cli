@@ -52,7 +52,6 @@ optional arguments:
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2
 Crawling data for you.....
-Crawling data for you.....
 磁链: magnet:?xt=urn:btih:7ccaddac5d1cce7057b5381b49e1522f6c39e047
 名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-国语中字-RARBT
 大小: 2.85 GB
@@ -107,8 +106,7 @@ magnet:?xt=urn:btih:afbda9a99b38f4fb974931fac6b9817126ce25f0 2.32 GB 2017-11-11
 magnet:?xt=urn:btih:b2489aed91b9a154bcb31147897d8183ca1707bd 720.82 MB 2017-11-06
 ```
 
-**或者可以保存为 csv 或者 json 文件**
-建议保存为 csv 文件，json 数据会被序列化，转为 utf 编码。
+**或者可以保存为 csv 或者 json 文件**（建议保存为 csv 文件，json 数据会被序列化，转为 utf 编码）
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2 -o movie.csv
 ```
