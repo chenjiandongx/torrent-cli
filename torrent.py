@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-from __future__ import unicode_literals, division
+from __future__ import division
 
 import os
 import math
@@ -152,10 +152,13 @@ def _print(magnets, is_show_magnet_only):
             print(row["magnet"], row["magnet_size"], row["magnet_date"])
     else:
         for row in magnets:
-            print("磁链:", row["magnet"])
-            print("名称:", row["magnet_name"])
-            print("大小:", row["magnet_size"])
-            print("日期:", row["magnet_date"], "\n")
+            try:
+                print("磁链:", row["magnet"])
+                print("名称:", row["magnet_name"])
+                print("大小:", row["magnet_size"])
+                print("日期:", row["magnet_date"], "\n")
+            except OSError:
+                pass
 
 
 def _output(magnets, path):
