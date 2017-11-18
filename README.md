@@ -12,7 +12,7 @@ Windows10 + Python3
 ### 安装
 #### pip 安装
 ```
-$ pip install torrent-cli -U
+$ pip install torrent-cli
 ```
 
 #### 源码安装
