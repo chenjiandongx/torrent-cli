@@ -8,7 +8,7 @@ import argparse
 
 import requests
 from bs4 import BeautifulSoup
-import pyexcel as p
+import pyexcel as pe
 
 
 HEADERS = {
@@ -170,7 +170,8 @@ def _output(magnets, path):
     if path:
         _, extension = os.path.splitext(path)
         if extension in ['.csv', '.json']:
-            p.save_as(records=magnets, dest_file_name=path)
+            pe.save_as(records=magnets, dest_file_name=path)
+            print("Save successfully!")
         else:
             print("Failed to save the file!")
 
