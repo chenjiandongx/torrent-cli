@@ -18,7 +18,7 @@ HEADERS = {
                   '(KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
 }
 
-VERSION = "VERSION 0.0.4"
+VERSION = "VERSION 0.0.5"
 
 
 def get_parser():
@@ -81,7 +81,7 @@ def run(kw, num, sort_by):
     for p in range(1, page + 1):
         url = domain + "/search/{kw}_ctime_{p}.html".format(kw=kw, p=p)
         try:
-            resp = requests.get(url, headers=HEADERS).text.encode('utf-8')
+            resp = requests.get(url, headers=HEADERS).text.encode("utf-8")
             try:
                 bs = BeautifulSoup(resp, "lxml").find(
                     'ul', class_='media-list media-list-set').find_all('li')
@@ -91,7 +91,7 @@ def run(kw, num, sort_by):
                 for b in bs:
                     _name = str(b.find(
                         class_='media-body').find('h4').find('a', class_='title').text).strip()
-                    name = _name if "战狼" in _name else None
+                    name = _name if kw in _name else None
                     if name:
                         item = b.find('div', class_='media-more')
                         time = item.find(class_='label label-success').text
@@ -155,6 +155,8 @@ def _print(magnets, is_show_magnet_only):
     if is_show_magnet_only:
         for row in magnets:
             print(row["magnet"], row["magnet_size"], row["magnet_date"])
+    if not magnets:
+        return
     else:
         for row in magnets:
             try:
@@ -163,8 +165,12 @@ def _print(magnets, is_show_magnet_only):
                 print("大小:", row["magnet_size"])
                 print("日期:", row["magnet_date"])
                 print("热度:", row["magnet_rank"], "\n")
-            except OSError:
-                pass
+            except:
+                print("磁链:", row["magnet"])
+                print("名称:", row["magnet_name"].encode('utf-8'))
+                print("大小:", row["magnet_size"])
+                print("日期:", row["magnet_date"])
+                print("热度:", row["magnet_rank"], "\n")
 
 
 def _output(magnets, path):

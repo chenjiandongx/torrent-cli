@@ -2,8 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/torrent-cli.svg)](https://badge.fury.io/py/torrent-cli) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-作为一个学编程的，找资源这种事，肯定不能像普通老百姓一样打开百度盲目查找啦。此时你就需要大喊一声 Python 大法好。
-近日无意中看到了一个不错的网站，心想着就把它利用起来吧，就写了一个磁力资源获取器命令行工具。
+作为一个搞代码的，找资源这种事，肯定不能像普通老百姓一样打开百度盲目查找啦！你需要写个爬虫工具来帮你完成这件事情啦！
 
 ### 兼容环境
 Windwos/Linux/MacOs
