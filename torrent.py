@@ -2,12 +2,13 @@
 # coding=utf-8
 from __future__ import division
 
+import re
 import os
 import math
 import argparse
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 import pyexcel as pe
 
 
@@ -17,7 +18,7 @@ HEADERS = {
                   '(KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
 }
 
-VERSION = "VERSION 0.0.3"
+VERSION = "VERSION 0.0.4"
 
 
 def get_parser():
@@ -27,10 +28,10 @@ def get_parser():
     parser = argparse.ArgumentParser(description='Magnets-Getter CLI Tools.')
     parser.add_argument('-k', '--keyword', type=str,
                         help='magnet keyword.')
-    parser.add_argument('-n', '--num', type=int, default=20,
-                        help='magnet number.(default 20)')
+    parser.add_argument('-n', '--num', type=int, default=10,
+                        help='magnet number.(default 10)')
     parser.add_argument('-s', '--sort-by', type=int, default=0,
-                        help='0: Sort by date，1: Sort by size.(default 0)')
+                        help='0: Sort by date，1: Sort by size. 2. Sort by hot-rank.(default 0)')
     parser.add_argument('-o', '--output', type=str,
                         help='output file path, supports csv and json format.')
     parser.add_argument('-p', '--pretty-oneline', action='store_true',
@@ -66,50 +67,50 @@ def run(kw, num, sort_by):
 
     :param kw: 资源名称
     :param num: 资源数量
-    :param sort_by: 排序方式。0：按磁力时间排序，1：按磁力大小排序
+    :param sort_by: 排序方式。0：按磁力时间排序，1：按磁力大小排序 2：按磁力热度排序
     """
     print("Crawling data for you.....")
-    domain = "http://bt2.bt87.cc"
+    domain = "http://www.btyunsou.me"
 
     # 确保 num 有效
     if num < 0 or num > 200:
-        num = 20
-    # 每页最多 20 条磁力信息
-    page = int(math.ceil(num / 20))
-    urls = []
+        num = 10
+    # 每页最多 10 条磁力信息
+    page = int(math.ceil(num / 10))
+    magnets = []
     for p in range(1, page + 1):
-        url = domain + "/index.php?r=files%2Findex&kw={kw}&page={p}".\
-            format(kw=kw, p=p)
+        url = domain + "/search/{kw}_ctime_{p}.html".format(kw=kw, p=p)
         try:
-            resp = requests.get(url, headers=HEADERS).text
+            resp = requests.get(url, headers=HEADERS).text.encode('utf-8')
             try:
                 bs = BeautifulSoup(resp, "lxml").find(
-                    "ul", class_="row list-group").find_all("li")
-                urls.extend([domain + b.find("a")["href"] for b in bs])
+                    'ul', class_='media-list media-list-set').find_all('li')
+                if not bs:
+                    print("Sorry, found nothing :(")
+                    return
+                for b in bs:
+                    _name = str(b.find(
+                        class_='media-body').find('h4').find('a', class_='title').text).strip()
+                    name = _name if "战狼" in _name else None
+                    if name:
+                        item = b.find('div', class_='media-more')
+                        time = item.find(class_='label label-success').text
+                        size = item.find(class_='label label-warning').text
+                        rank = item.find(class_='label label-primary').text
+                        link = re.findall(
+                            r'href="(.*?)">',
+                            str(item.find(text=lambda text: isinstance(text, Comment))))[0]
+                        magnets.append({
+                            "magnet": link,             # 磁力链接
+                            "magnet_name": name,        # 磁力名称
+                            "magnet_date": time,        # 磁力日期
+                            "magnet_size": size,        # 磁力大小
+                            "magnet_rank": int(rank)    # 磁力热度
+                        })
             except:
                 pass
-        except Exception:
-            print("Crawling Exception, may be you should check your network!")
-
-    magnets = []
-    if not urls:
-        print("Sorry, found nothing :(")
-
-    for url in urls:
-        try:
-            resp = requests.get(url, headers=HEADERS).text
-            magnet = BeautifulSoup(resp, 'lxml').find("h4", id="magnet").text[8:]
-            magnet_name = BeautifulSoup(resp, 'lxml').find("h3").text
-            magnet_date, magnet_size = (
-                str(BeautifulSoup(resp, 'lxml').find("h4").text).split(maxsplit=1))
-            magnets.append({
-                "magnet": magnet,               # 磁力链接
-                "magnet_name": magnet_name,     # 磁力名称
-                "magnet_date": magnet_date,     # 磁力日期
-                "magnet_size": magnet_size      # 磁力大小
-            })
-        except Exception:
-            print("Crawling Exception, may be you should check your network!")
+        except Exception as e:
+            print(e)
     return sort_magnets(magnets, sort_by, num)
 
 
@@ -125,7 +126,7 @@ def sort_magnets(magnets, sort_by, num):
                           key=lambda x: x["magnet_date"],
                           reverse=True)
     # 按大小排序，统一单位为 kb
-    else:
+    elif sort_by == 1:
         for m in magnets:
             unit = m["magnet_size"].split()
             if unit[1] == "GB":
@@ -137,6 +138,10 @@ def sort_magnets(magnets, sort_by, num):
             m["magnet_size_kb"] = _size
         _magnets = sorted(magnets,
                           key=lambda x: x["magnet_size_kb"],
+                          reverse=True)
+    else:
+        _magnets = sorted(magnets,
+                          key=lambda x: x["magnet_rank"],
                           reverse=True)
     return _magnets[:num]
 
@@ -156,7 +161,8 @@ def _print(magnets, is_show_magnet_only):
                 print("磁链:", row["magnet"])
                 print("名称:", row["magnet_name"])
                 print("大小:", row["magnet_size"])
-                print("日期:", row["magnet_date"], "\n")
+                print("日期:", row["magnet_date"])
+                print("热度:", row["magnet_rank"], "\n")
             except OSError:
                 pass
 

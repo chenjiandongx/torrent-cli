@@ -4,7 +4,7 @@ setup(
     author="chenjiandongx",
     author_email="chenjiandongx@qq.com",
     name="torrent-cli",
-    version="0.0.3",
+    version="0.0.4",
     license="MIT",
     url="https://github.com/chenjiandongx/torrent-cli",
     py_modules=['torrent',],
@@ -17,6 +17,6 @@ setup(
         'future'],
     description="Magnets-Getter CLI Tools",
     entry_points={
-        'console_scripts':['torrent-cli=torrent:command_line_runner']
+        'console_scripts': ['torrent-cli=torrent:command_line_runner']
     }
 )
