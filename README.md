@@ -5,8 +5,8 @@
 作为一个学编程的，找资源这种事，肯定不能像普通老百姓一样打开百度盲目查找啦。此时你就需要大喊一声 Python 大法好。
 近日无意中看到了一个不错的网站，心想着就把它利用起来吧，就写了一个磁力资源获取器命令行工具。
 
-### 开发环境
-Windows10 + Python3
+### 兼容环境
+Windwos/Linux/MacOs
 
 
 ### 安装
@@ -36,74 +36,96 @@ optional arguments:
   -h, --help            show this help message and exit
   -k KEYWORD, --keyword KEYWORD
                         magnet keyword.
-  -n NUM, --num NUM     magnet number.(default 20)
+  -n NUM, --num NUM     magnet number.(default 10)
   -s SORT_BY, --sort-by SORT_BY
-                        0: Sort by date，1: Sort by size.(default 0)
+                        0: Sort by date，1: Sort by size. 2. Sort by hot-
+                        rank.(default 0)
   -o OUTPUT, --output OUTPUT
                         output file path, supports csv and json format.
   -p, --pretty-oneline  show magnets info with one line.
   -v, --version         version information.
-
 ```
 
 
 #### 简单示范
-
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2
 Crawling data for you.....
-磁链: magnet:?xt=urn:btih:7ccaddac5d1cce7057b5381b49e1522f6c39e047
-名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-国语中字-RARBT
-大小: 2.85 GB
-日期: 2017-11-17
+磁链: magnet:?xt=urn:btih:5E6BCE50844BFB6616F409595186913B17585085
+名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-BT4K
+大小: 2.3 GB
+日期: 2018-01-02
+热度: 1
 
-磁链: magnet:?xt=urn:btih:b441bedeb5d64785ce6333564b739354d7775843
-名称: 【百度搜：爱诺影视】战狼2.2017.HD1080P.国语中字
-大小: 2.1 GB
-日期: 2017-11-17
-
-磁链: magnet:?xt=urn:btih:621c1325452840ba221740b0c6d305a625ecbc81
+磁链: magnet:?xt=urn:btih:621C1325452840BA221740B0C6D305A625ECBC81
 名称: 战狼2.新战狼.2017.HD2160P.X264.AAC.国语中字
-大小: 5.43 GB
-日期: 2017-11-15
+大小: 5.4 GB
+日期: 2018-01-01
+热度: 2
 
-磁链: magnet:?xt=urn:btih:a8e41331091160c1660404ea37cdababa8616c21
+磁链: magnet:?xt=urn:btih:A8E41331091160C1660404EA37CDABABA8616C21
 名称: 战狼2.Wolf.Warriors.2.2017.1080p.WEB-DL.X264.AAC-bbs.homefei.me
 大小: 3.5 GB
-日期: 2017-11-12
+日期: 2018-01-01
+热度: 118
 
-磁链: magnet:?xt=urn:btih:1647c411b8481738d29661b96629c7493f62ed12
-名称: 战狼2.新战狼.2017.HD1080P.X264.AAC.国语中字
-大小: 2.61 GB
-日期: 2017-11-12
+磁链: magnet:?xt=urn:btih:5B411E880CB585B5B596DBB25BB7F0927FD44F54
+名称: 战狼2.Wolf.Warriors.II.2017.BD1080P.X264.DTS-HD.MA.7.1.Mandarin&English.CHS-ENG.Mp4BaFans
+大小: 13.2 GB
+日期: 2018-01-01
+热度: 9
 
-......
+磁链: magnet:?xt=urn:btih:73B9961CF84B39EBCCEB223A1D15DE2ECE4CF2F9
+名称: 战狼2 2017_BD.mp4
+大小: 1.6 GB
+日期: 2017-12-22
+热度: 50
+
+磁链: magnet:?xt=urn:btih:51C8ACED86C6B073642D63CF502A00666B912AD1
+名称: 战狼2.Wolf.Warriors.2.2017.WEB-DL.X264.AAC.1080P.CHS-MP44K
+大小: 2.3 GB
+日期: 2017-12-21
+热度: 7
+
+磁链: magnet:?xt=urn:btih:6DF8018D9D1B3058946E5E6CF07DF1FF0A59F254
+名称: 战狼2.Wolf.Warriors.2.2017.BD720P.X264.AAC.Mandarin.CHS.国语中字
+大小: 2.0 GB
+日期: 2017-12-21
+热度: 12
+
+磁链: magnet:?xt=urn:btih:DFC0B3DBF09DD65426C4B7C5619CB00DB078F5D7
+名称: 战狼2.Wolf.Warriors.II.2017.1080p.BluRay.x264-中英双字-RARBT
+大小: 3.5 GB
+日期: 2017-12-18
+热度: 4
+
+磁链: magnet:?xt=urn:btih:34F0C102D57A9AE77A93A22D27770452649E7AAA
+名称: 【Mp4Bao.COM】战狼2.国语中英双字.Wolf.Warriors.2.2017.HD1080P.X264.AAC.CHS-ENG
+大小: 2.3 GB
+日期: 2017-12-18
+热度: 1
+
+磁链: magnet:?xt=urn:btih:57E9D5355EEFFC71DCAECC9B20014D0436D376A3
+名称: 战狼2.Wolf.Warriors.II.2017.BD-1080p.X264.AAC-99Mp4.mp4
+大小: 3.3 GB
+日期: 2017-12-17
+热度: 12
 ```
 
-**单行显示并按大小排序**
+**单行显示并按大小排序（也可以指定排序顺序为 2，按热度排序）**
 ```
 C:\Users\chenjiandongx>torrent-cli -k 战狼2 -p -s 1
 Crawling data for you.....
-magnet:?xt=urn:btih:b6401277ba77620727f7d6fe1345501555f7ca28 7.75 GB 2017-11-09
-magnet:?xt=urn:btih:8cdba300f43884ef7958c75343f3b10dd0009881 7.49 GB 2017-11-09
-magnet:?xt=urn:btih:7e364fe1ef493761aa7c2c4231f5d8dc34df90fe 5.44 GB 2017-11-06
-magnet:?xt=urn:btih:fad291b30048f367c4324cbef6fa6ce127ae6940 5.44 GB 2017-11-08
-magnet:?xt=urn:btih:de42bc281cf39f0f489b64f06c2440466d545c83 5.44 GB 2017-11-11
-magnet:?xt=urn:btih:621c1325452840ba221740b0c6d305a625ecbc81 5.43 GB 2017-11-15
-magnet:?xt=urn:btih:bf2f95270fb94bf98dd23e0546c463c7343fbfca 3.56 GB 2017-11-10
-magnet:?xt=urn:btih:a8e41331091160c1660404ea37cdababa8616c21 3.5 GB 2017-11-12
-magnet:?xt=urn:btih:f26ce21764f946c92da5aa89d6db067d751c0d3f 2.76 GB 2017-11-07
-magnet:?xt=urn:btih:244d7f5b281b0c3731f345f4c46259954d3bddf4 2.72 GB 2017-11-09
-magnet:?xt=urn:btih:6bb32d1fd3f44293657e7f23f163c8af21c27d52 2.69 GB 2017-11-06
-magnet:?xt=urn:btih:c60e1f9436118b36ce8d3bfdf16504b71d18d4f9 2.69 GB 2017-11-09
-magnet:?xt=urn:btih:1647c411b8481738d29661b96629c7493f62ed12 2.61 GB 2017-11-12
-magnet:?xt=urn:btih:770ad4f9882ba6245bdf7d7aa97d2dd8afa691b5 2.55 GB 2017-11-10
-magnet:?xt=urn:btih:5e6bce50844bfb6616f409595186913b17585085 2.32 GB 2017-11-07
-magnet:?xt=urn:btih:34f0c102d57a9ae77a93a22d27770452649e7aaa 2.32 GB 2017-11-09
-magnet:?xt=urn:btih:2fb2595d41c7570b1a50634b2e466a149c0a2f7d 2.32 GB 2017-11-09
-magnet:?xt=urn:btih:9aabc55040066ce78d27ca36d8c15ae56ccf5b0b 2.32 GB 2017-11-10
-magnet:?xt=urn:btih:afbda9a99b38f4fb974931fac6b9817126ce25f0 2.32 GB 2017-11-11
-magnet:?xt=urn:btih:b2489aed91b9a154bcb31147897d8183ca1707bd 720.82 MB 2017-11-06
+magnet:?xt=urn:btih:5B411E880CB585B5B596DBB25BB7F0927FD44F54 13.2 GB 2018-01-01
+magnet:?xt=urn:btih:621C1325452840BA221740B0C6D305A625ECBC81 5.4 GB 2018-01-01
+magnet:?xt=urn:btih:A8E41331091160C1660404EA37CDABABA8616C21 3.5 GB 2018-01-01
+magnet:?xt=urn:btih:DFC0B3DBF09DD65426C4B7C5619CB00DB078F5D7 3.5 GB 2017-12-18
+magnet:?xt=urn:btih:57E9D5355EEFFC71DCAECC9B20014D0436D376A3 3.3 GB 2017-12-17
+magnet:?xt=urn:btih:5E6BCE50844BFB6616F409595186913B17585085 2.3 GB 2018-01-02
+magnet:?xt=urn:btih:51C8ACED86C6B073642D63CF502A00666B912AD1 2.3 GB 2017-12-21
+magnet:?xt=urn:btih:34F0C102D57A9AE77A93A22D27770452649E7AAA 2.3 GB 2017-12-18
+magnet:?xt=urn:btih:6DF8018D9D1B3058946E5E6CF07DF1FF0A59F254 2.0 GB 2017-12-21
+magnet:?xt=urn:btih:73B9961CF84B39EBCCEB223A1D15DE2ECE4CF2F9 1.6 GB 2017-12-22
 ```
 
 **或者可以保存为 csv 或者 json 文件**（建议保存为 csv 文件，json 数据会被序列化，转为 utf 编码）
