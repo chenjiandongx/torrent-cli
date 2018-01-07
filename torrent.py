@@ -31,7 +31,7 @@ def get_parser():
     parser.add_argument('-n', '--num', type=int, default=10,
                         help='magnet number.(default 10)')
     parser.add_argument('-s', '--sort-by', type=int, default=0,
-                        help='0: Sort by date，1: Sort by size. 2. Sort by hot-rank.(default 0)')
+                        help='0: Sort by date，1: Sort by size. 2: Sort by hot-rank.(default 0)')
     parser.add_argument('-o', '--output', type=str,
                         help='output file path, supports csv and json format.')
     parser.add_argument('-p', '--pretty-oneline', action='store_true',
@@ -152,11 +152,11 @@ def _print(magnets, is_show_magnet_only):
     :param magnets: 磁力列表
     :param is_show_magnet_only: 单行输出
     """
+    if not magnets:
+        return
     if is_show_magnet_only:
         for row in magnets:
             print(row["magnet"], row["magnet_size"], row["magnet_date"])
-    if not magnets:
-        return
     else:
         for row in magnets:
             try:
