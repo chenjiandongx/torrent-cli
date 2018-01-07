@@ -70,7 +70,7 @@ def run(kw, num, sort_by):
     :param sort_by: 排序方式。0：按磁力时间排序，1：按磁力大小排序 2：按磁力热度排序
     """
     print("Crawling data for you.....")
-    domain = "http://www.btyunsou.me"
+    domain = "https://www.btyunsou.me"
 
     # 确保 num 有效
     if num < 0 or num > 200:
