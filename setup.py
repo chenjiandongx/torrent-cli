@@ -12,8 +12,6 @@ setup(
         'bs4',
         'requests',
         'lxml',
-        'pyexcel',
-        'pyexcel-text',
         'future'],
     description="Magnets-Getter CLI Tools",
     entry_points={

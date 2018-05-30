@@ -6,10 +6,12 @@ import re
 import os
 import math
 import argparse
+import json
+import codecs
 
 import requests
 from bs4 import BeautifulSoup, Comment
-import pyexcel as pe
+import csv
 
 
 HEADERS = {
@@ -67,10 +69,20 @@ def run(kw, num, sort_by):
 
     :param kw: 资源名称
     :param num: 资源数量
-    :param sort_by: 排序方式。0：按磁力时间排序，1：按磁力大小排序 2：按磁力热度排序
+    :param sort_by: 排序方式。0：按磁力时间排序，1：按文件大小排序 2：按磁力热度排序
     """
     print("Crawling data for you.....")
     domain = "http://www.btyunsou.co"
+
+    # 排序类型选择
+    if sort_by == 0:
+        sort_str = "ctime"
+    elif sort_by == 1:
+        sort_str = "length"
+    elif sort_by == 2:
+        sort_str = "click"
+    else:
+        raise ValueError("Unknown Sort Method")
 
     # 确保 num 有效
     if num < 0 or num > 200:
@@ -79,7 +91,7 @@ def run(kw, num, sort_by):
     page = int(math.ceil(num / 10))
     magnets = []
     for p in range(1, page + 1):
-        url = domain + "/search/{kw}_ctime_{p}.html".format(kw=kw, p=p)
+        url = domain + "/search/{kw}_{s}_{p}.html".format(kw=kw, s=sort_str, p=p)
         try:
             resp = requests.get(url, headers=HEADERS).text.encode("utf-8")
             try:
@@ -89,8 +101,8 @@ def run(kw, num, sort_by):
                     print("Sorry, found nothing :(")
                     return
                 for b in bs:
-                    _name = str(b.find(
-                        class_='media-body').find('h4').find('a', class_='title').text).strip()
+                    _name = b.find(
+                        class_='media-body').find('h4').find('a', class_='title').get_text(strip=True)
                     name = _name if kw in _name else None
                     if name:
                         item = b.find('div', class_='media-more')
@@ -171,8 +183,7 @@ def _print(magnets, is_show_magnet_only):
                 print("大小:", row["magnet_size"])
                 print("日期:", row["magnet_date"])
                 print("热度:", row["magnet_rank"], "\n")
-
-
+    
 def _output(magnets, path):
     """ 将数据保存到本地文件
 
@@ -181,8 +192,17 @@ def _output(magnets, path):
     """
     if path:
         _, extension = os.path.splitext(path)
-        if extension in ['.csv', '.json']:
-            pe.save_as(records=magnets, dest_file_name=path)
+        if extension == ".csv":
+            with open(path, mode="w+", encoding="utf-8-sig", newline="") as fout:
+                f_csv = csv.DictWriter(fout, 
+                                       ("magnet", "magnet_name", "magnet_size", "magnet_date", "magnet_rank"), 
+                                       extrasaction="ignore")
+                f_csv.writeheader()
+                f_csv.writerows(magnets)
+            print("Save successfully!")
+        elif extension == ".json":
+            with codecs.open(path, mode="w+", encoding="utf-8") as f:
+                json.dump(magnets, f, indent=2)
             print("Save successfully!")
         else:
             print("Failed to save the file!")
