@@ -183,15 +183,6 @@ def _print(magnets, is_show_magnet_only):
                 print("大小:", row["magnet_size"])
                 print("日期:", row["magnet_date"])
                 print("热度:", row["magnet_rank"], "\n")
-
-def _tocsv(magnets, path):
-
-    with codecs.open(path, mode="w+", encoding="utf-8-sig") as f:
-        keys = magnets[0].keys()
-        w = csv.DictWriter(f, keys)
-        w.writeheader()
-        for mag in magnets:
-            w.writerow(mag)
     
 def _output(magnets, path):
     """ 将数据保存到本地文件
@@ -202,7 +193,12 @@ def _output(magnets, path):
     if path:
         _, extension = os.path.splitext(path)
         if extension == ".csv":
-            _tocsv(magnets, path)
+            with open(path, mode="w+", encoding="utf-8-sig", newline="") as fout:
+                f_csv = csv.DictWriter(fout, 
+                                       ("magnet", "magnet_name", "magnet_size", "magnet_date", "magnet_rank"), 
+                                       extrasaction="ignore")
+                f_csv.writeheader()
+                f_csv.writerows(magnets)
             print("Save successfully!")
         elif extension == ".json":
             with codecs.open(path, mode="w+", encoding="utf-8") as f:
