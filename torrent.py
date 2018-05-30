@@ -99,8 +99,8 @@ def run(kw, num, sort_by):
                     print("Sorry, found nothing :(")
                     return
                 for b in bs:
-                    _name = str(b.find(
-                        class_='media-body').find('h4').find('a', class_='title').text).strip()
+                    _name = b.find(
+                        class_='media-body').find('h4').find('a', class_='title').get_text(strip=True)
                     name = _name if kw in _name else None
                     if name:
                         item = b.find('div', class_='media-more')
