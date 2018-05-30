@@ -67,10 +67,20 @@ def run(kw, num, sort_by):
 
     :param kw: 资源名称
     :param num: 资源数量
-    :param sort_by: 排序方式。0：按磁力时间排序，1：按磁力大小排序 2：按磁力热度排序
+    :param sort_by: 排序方式。0：按磁力时间排序，1：按文件大小排序 2：按磁力热度排序
     """
     print("Crawling data for you.....")
     domain = "http://www.btyunsou.co"
+
+    # 排序类型选择
+    if sort_by == 0:
+        sort_str = "ctime"
+    elif sort_by == 1:
+        sort_str = "length"
+    elif sort_by == 2:
+        sort_str = "click"
+    else:
+        raise ValueError("Unknown Sort Method")
 
     # 确保 num 有效
     if num < 0 or num > 200:
@@ -79,7 +89,7 @@ def run(kw, num, sort_by):
     page = int(math.ceil(num / 10))
     magnets = []
     for p in range(1, page + 1):
-        url = domain + "/search/{kw}_ctime_{p}.html".format(kw=kw, p=p)
+        url = domain + "/search/{kw}_{s}_{p}.html".format(kw=kw, s=sort_str, p=p)
         try:
             resp = requests.get(url, headers=HEADERS).text.encode("utf-8")
             try:
