@@ -7,14 +7,10 @@ setup(
     version="0.0.7",
     license="MIT",
     url="https://github.com/chenjiandongx/torrent-cli",
-    py_modules=['torrent',],
-    install_requires=[
-        'bs4',
-        'requests',
-        'lxml',
-        'future'],
+    py_modules=["torrent"],
+    install_requires=["bs4", "requests", "lxml", "future"],
     description="Magnets-Getter CLI Tools",
     entry_points={
-        'console_scripts': ['torrent-cli=torrent:command_line_runner']
-    }
+        "console_scripts": ["torrent-cli=torrent:command_line_runner"]
+    },
 )

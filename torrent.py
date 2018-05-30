@@ -2,8 +2,9 @@
 # coding=utf-8
 from __future__ import division
 
-import re
 import os
+import re
+import csv
 import math
 import argparse
 import json
@@ -11,7 +12,6 @@ import codecs
 
 import requests
 from bs4 import BeautifulSoup, Comment
-import csv
 
 
 HEADERS = {
@@ -44,7 +44,8 @@ def get_parser():
 
 
 def command_line_runner():
-    """ 执行命令行操作
+    """
+    执行命令行操作
     """
     parser = get_parser()
     args = vars(parser.parse_args())
@@ -65,7 +66,8 @@ def command_line_runner():
 
 
 def run(kw, num, sort_by):
-    """ 爬虫入口
+    """
+    爬虫入口
 
     :param kw: 资源名称
     :param num: 资源数量
@@ -102,7 +104,8 @@ def run(kw, num, sort_by):
                     return
                 for b in bs:
                     _name = b.find(
-                        class_='media-body').find('h4').find('a', class_='title').get_text(strip=True)
+                        class_='media-body').find('h4').find(
+                        'a', class_='title').get_text(strip=True)
                     name = _name if kw in _name else None
                     if name:
                         item = b.find('div', class_='media-more')
@@ -127,7 +130,8 @@ def run(kw, num, sort_by):
 
 
 def sort_magnets(magnets, sort_by, num):
-    """ 排序磁力
+    """
+    排序磁力
 
     :param magnets: 磁力列表
     :param sort_by: 排序方式
@@ -159,7 +163,8 @@ def sort_magnets(magnets, sort_by, num):
 
 
 def _print(magnets, is_show_magnet_only):
-    """ 在终端界面输出结果
+    """
+    在终端界面输出结果
 
     :param magnets: 磁力列表
     :param is_show_magnet_only: 单行输出
@@ -183,9 +188,11 @@ def _print(magnets, is_show_magnet_only):
                 print("大小:", row["magnet_size"])
                 print("日期:", row["magnet_date"])
                 print("热度:", row["magnet_rank"], "\n")
-    
+
+
 def _output(magnets, path):
-    """ 将数据保存到本地文件
+    """
+    将数据保存到本地文件
 
     :param magnets: 磁力列表
     :param path: 文件路径，支持 csv 和 json 两种文件格式
@@ -193,10 +200,16 @@ def _output(magnets, path):
     if path:
         _, extension = os.path.splitext(path)
         if extension == ".csv":
+            # 不兼容 Python2
             with open(path, mode="w+", encoding="utf-8-sig", newline="") as fout:
-                f_csv = csv.DictWriter(fout, 
-                                       ("magnet", "magnet_name", "magnet_size", "magnet_date", "magnet_rank"), 
-                                       extrasaction="ignore")
+                fieldnames = (
+                    "magnet",
+                    "magnet_name",
+                    "magnet_size",
+                    "magnet_date",
+                    "magnet_rank"
+                )
+                f_csv = csv.DictWriter(fout, fieldnames, extrasaction="ignore")
                 f_csv.writeheader()
                 f_csv.writerows(magnets)
             print("Save successfully!")
