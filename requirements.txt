@@ -3,5 +3,3 @@ beautifulsoup4
 lxml
 future
 requests
-pyexcel
-pyexcel-test

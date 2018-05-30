@@ -11,7 +11,7 @@ import codecs
 
 import requests
 from bs4 import BeautifulSoup, Comment
-import pyexcel as pe
+import csv
 
 
 HEADERS = {
@@ -184,7 +184,25 @@ def _print(magnets, is_show_magnet_only):
                 print("日期:", row["magnet_date"])
                 print("热度:", row["magnet_rank"], "\n")
 
+def _tocsv(magnets, path):
 
+    keys = []
+    for mag in magnets:
+        for key in mag.keys():
+            if key not in keys:
+                keys.append(str(key))
+
+    result = [keys]
+    for mag in magnets:
+        row = []
+        for key in keys:
+            row.append(str(mag.get(key, "")))
+        result.append(row)
+
+    with codecs.open(path, mode="w+", encoding="utf-8-sig") as f:
+        w = csv.writer(f)
+        w.writerows(result)
+    
 def _output(magnets, path):
     """ 将数据保存到本地文件
 
@@ -194,7 +212,7 @@ def _output(magnets, path):
     if path:
         _, extension = os.path.splitext(path)
         if extension == ".csv":
-            pe.save_as(records=magnets, dest_file_name=path)
+            _tocsv(magnets, path)
             print("Save successfully!")
         elif extension == ".json":
             with codecs.open(path, mode="w+", encoding="utf-8") as f:
