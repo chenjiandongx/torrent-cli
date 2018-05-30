@@ -6,6 +6,7 @@ import re
 import os
 import math
 import argparse
+import json
 
 import requests
 from bs4 import BeautifulSoup, Comment
@@ -191,8 +192,12 @@ def _output(magnets, path):
     """
     if path:
         _, extension = os.path.splitext(path)
-        if extension in ['.csv', '.json']:
+        if extension == ".csv":
             pe.save_as(records=magnets, dest_file_name=path)
+            print("Save successfully!")
+        elif extension == ".json":
+            with open(path, mode="w") as f:
+                json.dump(magnets, f, indent=2)
             print("Save successfully!")
         else:
             print("Failed to save the file!")
