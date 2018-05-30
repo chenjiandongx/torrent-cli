@@ -186,22 +186,12 @@ def _print(magnets, is_show_magnet_only):
 
 def _tocsv(magnets, path):
 
-    keys = []
-    for mag in magnets:
-        for key in mag.keys():
-            if key not in keys:
-                keys.append(str(key))
-
-    result = [keys]
-    for mag in magnets:
-        row = []
-        for key in keys:
-            row.append(str(mag.get(key, "")))
-        result.append(row)
-
     with codecs.open(path, mode="w+", encoding="utf-8-sig") as f:
-        w = csv.writer(f)
-        w.writerows(result)
+        keys = magnets[0].keys()
+        w = csv.DictWriter(f, keys)
+        w.writeheader()
+        for mag in magnets:
+            w.writerow(mag)
     
 def _output(magnets, path):
     """ 将数据保存到本地文件
