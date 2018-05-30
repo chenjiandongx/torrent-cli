@@ -7,6 +7,7 @@ import os
 import math
 import argparse
 import json
+import codecs
 
 import requests
 from bs4 import BeautifulSoup, Comment
@@ -196,7 +197,7 @@ def _output(magnets, path):
             pe.save_as(records=magnets, dest_file_name=path)
             print("Save successfully!")
         elif extension == ".json":
-            with open(path, mode="w") as f:
+            with codecs.open(path, mode="w+", encoding="utf-8") as f:
                 json.dump(magnets, f, indent=2)
             print("Save successfully!")
         else:
