@@ -106,7 +106,7 @@ def run(kw, num, sort_by):
                     _name = b.find(
                         class_='media-body').find('h4').find(
                         'a', class_='title').get_text(strip=True)
-                    name = _name if kw in _name else None
+                    name = _name if kw.lower() in _name.lower() else None
                     if name:
                         item = b.find('div', class_='media-more')
                         time = item.find(class_='label label-success').text
