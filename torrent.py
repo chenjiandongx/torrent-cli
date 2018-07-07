@@ -20,7 +20,7 @@ HEADERS = {
                   '(KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
 }
 
-VERSION = "VERSION 0.0.7"
+VERSION = "VERSION 0.0.8"
 
 
 def get_parser():
