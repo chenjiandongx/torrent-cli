@@ -4,7 +4,7 @@ setup(
     author="chenjiandongx",
     author_email="chenjiandongx@qq.com",
     name="torrent-cli",
-    version="0.0.8",
+    version="0.0.9",
     license="MIT",
     url="https://github.com/chenjiandongx/torrent-cli",
     py_modules=["torrent"],
