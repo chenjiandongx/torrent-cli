@@ -49,7 +49,7 @@ optional arguments:
 
 #### 示例
 
-**根据关键字搜索**
+**根据单关键字搜索**
 ```
 $ torrent-cli 战狼2
 Crawling data for you.....
@@ -112,6 +112,71 @@ Crawling data for you.....
 大小: 1.1 GB
 日期: 2018-02-21
 热度: 29
+```
+
+**支持空格匹配多关键字**
+```
+$ torrent-cli 钢铁侠 3
+Crawling data for you.....
+磁链: magnet:?xt=urn:btih:D43351FC74020C3E41F21C4E2D09736795D88DEE
+名称: 钢铁侠3.iron.man.3.2013.bd1080p.x264.aac.mandarin&english.chs-eng.mp4ba
+大小: 4.7 GB
+日期: 2018-05-15
+热度: 2
+
+磁链: magnet:?xt=urn:btih:C65EBBB542C4D419AD4258530B1E80EF9A2AE105
+名称: 钢铁侠3.mkv
+大小: 1.7 GB
+日期: 2018-03-09
+热度: 1
+
+磁链: magnet:?xt=urn:btih:8C00A1AEEFAFB69365784BD3CFA36C444585A4BF
+名称: 钢铁侠3.iron.man.3.2013.bd1080p.x264.ac3.mandarin&english.chs-eng.adans
+大小: 6.6 GB
+日期: 2018-02-22
+热度: 12
+
+磁链: magnet:?xt=urn:btih:97BEF685F08F2CA98A6F11531CAE5DCD51EFD98B
+名称: [www.hdmayi.com]钢铁侠3.2013.1080p.bd-mp4.国英双语.中英特效字幕
+大小: 5.9 GB
+日期: 2018-01-04
+热度: 10
+
+磁链: magnet:?xt=urn:btih:89244063F9B039F0587190BA46CA63B1D5C53361
+名称: 2013.钢铁侠3.bd1080p英语中英双字[www.bdsee.cn].mp4
+大小: 5.7 GB
+日期: 2017-12-11
+热度: 32
+
+磁链: magnet:?xt=urn:btih:AFF3031AC9D8FD94FB8883E3CCB6FCE84CF68F0C
+名称: 钢铁侠3【iron man3】【dvd-rmvb.英语中字】.rmvb
+大小: 728.5 MB
+日期: 2017-10-17
+热度: 2
+
+磁链: magnet:?xt=urn:btih:FD5C31C972723956811AA0F653A4C3205D5DBAEC
+名称: 钢铁侠3.iron.man.3.2013.bd720p.x264.aac.mandarin&english.chs-eng.mp4ba
+大小: 2.6 GB
+日期: 2017-10-14
+热度: 82
+
+磁链: magnet:?xt=urn:btih:AA40AEC5F9481BB5F75833B7FCBE73A74D75266D
+名称: 【钢铁侠3】【bluray-1080p高清-中英双字】【小罗伯特.唐尼2013科幻大片】
+大小: 1.6 GB
+日期: 2017-10-06
+热度: 1
+
+磁链: magnet:?xt=urn:btih:16BB0FBAC7BC9F40AE1522BA09820D3E60261664
+名称: 钢铁侠3.iron.man.3.2013.bd1080p.超清中英字幕-minimp4
+大小: 2.8 GB
+日期: 2017-09-20
+热度: 51
+
+磁链: magnet:?xt=urn:btih:0F49B618CCAD8292EE1A3FC5E38F433D44C8C51C
+名称: 钢铁侠3.iron.man.3.2013.bd1080p.x264.aac.mandarin&english.chs-eng.mp4ba.mp4
+大小: 4.7 GB
+日期: 2017-09-12
+热度: 80
 ```
 
 **单行显示并按大小排序（也可以指定排序顺序为 2，按热度排序）**
