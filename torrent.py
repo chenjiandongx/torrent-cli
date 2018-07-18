@@ -21,6 +21,7 @@ HEADERS = {
 }
 
 VERSION = "VERSION 0.0.8"
+DOMAIN = "http://www.btyunsou.co"
 
 
 def get_parser():
@@ -28,7 +29,7 @@ def get_parser():
     解析命令行参数
     """
     parser = argparse.ArgumentParser(description='Magnets-Getter CLI Tools.')
-    parser.add_argument('-k', '--keyword', type=str,
+    parser.add_argument('keyword', metavar="KEYWORD", type=str, nargs="*",
                         help='magnet keyword.')
     parser.add_argument('-n', '--num', type=int, default=10,
                         help='magnet number.(default 10)')
@@ -74,8 +75,7 @@ def run(kw, num, sort_by):
     :param sort_by: 排序方式。0：按磁力时间排序，1：按文件大小排序 2：按磁力热度排序
     """
     print("Crawling data for you.....")
-    domain = "http://www.btyunsou.co"
-
+    _kw = "%20".join(kw)
     # 排序类型选择
     if sort_by == 0:
         sort_str = "ctime"
@@ -93,7 +93,7 @@ def run(kw, num, sort_by):
     page = int(math.ceil(num / 10))
     magnets = []
     for p in range(1, page + 1):
-        url = domain + "/search/{kw}_{s}_{p}.html".format(kw=kw, s=sort_str, p=p)
+        url = DOMAIN + "/search/{kw}_{s}_{p}.html".format(kw=_kw, s=sort_str, p=p)
         try:
             resp = requests.get(url, headers=HEADERS).text.encode("utf-8")
             try:
@@ -106,8 +106,13 @@ def run(kw, num, sort_by):
                     _name = b.find(
                         class_='media-body').find('h4').find(
                         'a', class_='title').get_text(strip=True)
-                    name = _name if kw.lower() in _name.lower() else None
-                    if name:
+                    # 资源名称判断
+                    is_name_found= False
+                    name = _name.lower()
+                    for n in kw:
+                        if n.lower() in name:
+                            is_name_found = True
+                    if is_name_found:
                         item = b.find('div', class_='media-more')
                         time = item.find(class_='label label-success').text
                         size = item.find(class_='label label-warning').text
